@@ -41,7 +41,6 @@ public class RemoteService extends Service{
     }
 
     public class MyConn implements ServiceConnection {
-
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
 
@@ -54,7 +53,7 @@ public class RemoteService extends Service{
         }
     }
 
-    private void startAndBindService(){
+    private void startAndBindService() {
         startService(new Intent(this, MainService.class));
         bindService(new Intent(this,MainService.class), myConn, Context.BIND_IMPORTANT);
         ToastUtils.toast(this, "开启MainService");

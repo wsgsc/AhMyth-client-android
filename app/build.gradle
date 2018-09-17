@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "abcd.mine.king.abcd"
+        applicationId "com.king.ahh.abcd"
         minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
@@ -28,5 +28,8 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.github.jokermonn:permissions4m:2.1.2-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
     testCompile 'junit:junit:4.12'
 }

@@ -35,13 +35,13 @@ public class JobService extends android.app.job.JobService{
     @Override
     public boolean onStartJob(JobParameters params) {
         startService();
-        jobFinished(params, false);
+        scheduleJob(getJobInfo());
         return false;
     }
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        scheduleJob(getJobInfo());
+
         return false;
     }
 
@@ -56,6 +56,12 @@ public class JobService extends android.app.job.JobService{
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             builder.setMinimumLatency(5 * 1000) ;//设置最小执行间隔
             builder.setOverrideDeadline(10 * 1000);//设置任务执行的最晚延迟时间
+
+//            builder.setMinimumLatency(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS); //执行的最小延迟时间
+//            builder.setOverrideDeadline(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS);  //执行的最长延时时间
+//            builder.setMinimumLatency(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS);
+//            builder.setBackoffCriteria(JobInfo.DEFAULT_INITIAL_BACKOFF_MILLIS, JobInfo.BACKOFF_POLICY_LINEAR);//线性重试方案
+
         } else {
             builder.setPeriodic(3000);
         }
@@ -65,10 +71,13 @@ public class JobService extends android.app.job.JobService{
 
     private void scheduleJob(JobInfo jobInfo) {
         JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        if(jobScheduler.schedule(jobInfo) <=0)
+        int ret = jobScheduler.schedule(jobInfo);
+        if(ret <= 0)
             ToastUtils.toast(this, "scheduleJob error");
-        else
-            ToastUtils.toast(this, "scheduleJob success");
+        else {
+            //ToastUtils.toast(this, "scheduleJob success :" + ret);
+            //LogUtils.log(TAG,"scheduleJob success :" + ret);
+        }
     }
 
     private void startService() {
@@ -79,8 +88,8 @@ public class JobService extends android.app.job.JobService{
         if(!isRemoteServiceWork)
             startService(new Intent(this,RemoteService.class));
 
-        LogUtils.log(TAG," start Job Service ");
-        ToastUtils.toast(this, "start Job Service");
+        //LogUtils.log(TAG," start Job Service ");
+       // ToastUtils.toast(this, "start Job Service");
     }
 
 }

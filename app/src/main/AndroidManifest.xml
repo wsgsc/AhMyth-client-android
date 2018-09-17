@@ -35,6 +35,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.SettingsActivity"
+            android:launchMode="singleTask"
+            android:exported="true"
+            >
+
+        </activity>
         <service
             android:name="com.king.ahh.abcd.service.MainService"
             android:enabled="true"

@@ -48,6 +48,15 @@ public class MainService extends Service {
     {
         contextOfApplication = this;
         bindService(new Intent(this, RemoteService.class), myConn, Context.BIND_IMPORTANT);
+        if(mExceutorService.isTerminated()) {
+            mExceutorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    ConnectionManager.startAsync(MainService.this);
+                }
+            });
+
+        }
         return Service.START_STICKY;
     }
 

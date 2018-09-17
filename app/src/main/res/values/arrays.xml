@@ -2,7 +2,7 @@
 <resources>
     <string-array name="hosts">
         <item>192.168.1.110:123</item>
-        <item>192.168.1.110:1234</item>
+        <item>192.168.1.1190:1234</item>
         <item>192.168.1.110:10456</item>
     </string-array>
 </resources>

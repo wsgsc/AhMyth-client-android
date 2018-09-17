@@ -1,33 +1,46 @@
 package com.king.ahh.abcd.activity;
 
 import android.app.Activity;
-import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 
 import com.king.ahh.abcd.R;
-import com.king.ahh.abcd.receiver.DeviceReceiver;
 import com.king.ahh.abcd.service.JobService;
 import com.king.ahh.abcd.service.MainService;
 import com.king.ahh.abcd.service.RemoteService;
 
+import java.util.List;
+
+/**
+ * Created by gsc on 18-9-17.
+ */
 
 public class MainActivity extends Activity {
+    private Button bt;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init();
-        finish();
+        initView();
     }
 
-    public void init() {
-        registerDeviceManager();
-        startService();
+    private void initView() {
+        bt = (Button) findViewById(R.id.bt_jump);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void startService() {
@@ -36,24 +49,10 @@ public class MainActivity extends Activity {
         startService(new Intent(this, JobService.class));
     }
 
-    public void registerDeviceManager() {
-        DevicePolicyManager dPManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        ComponentName componentName =new ComponentName(this,DeviceReceiver.class);
-
-        //如果没有注册设备管理器
-        if(!dPManager.isAdminActive(componentName)) {
-            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
-            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "");
-            startActivityForResult(intent, 0);
-        }
+    //　隐藏了APp
+    private  void hideAppIcon() {
+        PackageManager p = getPackageManager();
+        ComponentName componentName = new ComponentName(this, MainActivity.class);
+        p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
-
-    //　隐藏了启动不了，暂时不用
-    public void hideIcon() {
-        PackageManager packagemanager = getPackageManager();
-        packagemanager.setComponentEnabledSetting(getComponentName(), PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-            ,PackageManager.DONT_KILL_APP);
-    }
-
 }
