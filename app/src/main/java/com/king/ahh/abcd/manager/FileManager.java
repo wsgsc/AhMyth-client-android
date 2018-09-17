@@ -29,7 +29,7 @@ public class FileManager {
         JSONArray values = new JSONArray();
         File dir = new File(path);
         if (!dir.canRead()) {
-            Log.d("cannot","inaccessible");
+            Log.d("cannot","inaccessible :" + path);
         }
 
         File[] list = dir.listFiles();

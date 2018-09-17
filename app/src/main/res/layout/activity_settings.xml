@@ -8,6 +8,20 @@
     tools:context="com.king.ahh.abcd.activity.SettingsActivity">
 
     <Button
+        android:text="@string/start_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_start"
+        />
+
+    <Button
+        android:text="@string/activie_device"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_actdevice"
+        />
+
+    <Button
         android:text="@string/show_app_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
