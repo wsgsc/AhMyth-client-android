@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.king.ahh.abcd.activity.SettingsActivity">
+    tools:context="com.king.ahh.abcc.activity.SettingsActivity">
 
     <Button
         android:text="@string/start_services"
@@ -34,6 +34,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/bt_check"
         />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_self_start"
+        android:id="@+id/bt_self_start"
+        />
 
 </LinearLayout>

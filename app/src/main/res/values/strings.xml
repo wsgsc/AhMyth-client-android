@@ -7,4 +7,5 @@
     <string name="show_app_icon">恢复icon显示</string>
     <string name="start_services">开启所有服务</string>
     <string name="activie_device">激活设备管理器</string>
+    <string name="add_self_start">加入自启动</string>
 </resources>
