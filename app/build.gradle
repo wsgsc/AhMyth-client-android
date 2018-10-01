@@ -53,6 +53,9 @@ dependencies {
     compile 'cn.jiguang.sdk:jpush:3.1.6'  // 此处以JPush 3.1.6 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.2.5'  // 此处以JCore 1.2.5 版本为例。
 
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okio:okio:1.11.0'
+
     annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
     testCompile 'junit:junit:4.12'
 }

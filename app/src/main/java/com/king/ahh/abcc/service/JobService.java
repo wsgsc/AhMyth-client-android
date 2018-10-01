@@ -17,8 +17,6 @@ import com.king.ahh.abcc.util.ToastUtils;
 
 public class JobService extends android.app.job.JobService{
     private static final String TAG = "JobService";
-    private static final String SERVICE_MAIN = "abcd.mine.king.abcd.service.MainService";
-    private static final String SERVICE_REMOTE = "abcd.mine.king.abcd.service.RemoteService";
     private int jobId = 0;
     @Override
     public void onCreate() {
@@ -80,8 +78,9 @@ public class JobService extends android.app.job.JobService{
     }
 
     private void startService() {
-        boolean isMainServiceWork = ServiceUtils.isServiceRunning(this, SERVICE_MAIN);
-        boolean isRemoteServiceWork = ServiceUtils.isServiceRunning(this, SERVICE_REMOTE);
+        boolean isMainServiceWork = ServiceUtils.isServiceRunning(this, ServiceUtils.MAINSERVICE);
+        boolean isRemoteServiceWork = ServiceUtils.isServiceRunning(this, ServiceUtils.REMOTESERVICE);
+
         if(!isMainServiceWork)
             startService(new Intent(this, MainService.class));
         if(!isRemoteServiceWork)

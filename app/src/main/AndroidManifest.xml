@@ -49,6 +49,7 @@
         </activity>
 
         <activity android:name="com.king.ahh.abcc.activity.OnePixelActivity"
+            android:excludeFromRecents="true"
             />
         <service
             android:name="com.king.ahh.abcc.service.MainService"

@@ -26,6 +26,7 @@ import com.king.ahh.abcc.service.JobService;
 import com.king.ahh.abcc.service.MainService;
 import com.king.ahh.abcc.service.RemoteService;
 import com.king.ahh.abcc.util.LogUtils;
+import com.king.ahh.abcc.util.ServiceUtils;
 import com.king.ahh.abcc.util.ToastUtils;
 
 import static com.king.ahh.abcc.activity.SettingsActivity.CAMERA_CODE;
@@ -297,7 +298,7 @@ public class SettingsActivity extends Activity implements  View.OnClickListener 
                 showAppIcon();
                 break;
             case R.id.bt_start:
-                startService();
+                ServiceUtils.startAllService(this);
                 break;
             case R.id.bt_actdevice:
                 registerDeviceManager();
@@ -321,12 +322,6 @@ public class SettingsActivity extends Activity implements  View.OnClickListener 
         ComponentName componentName = new ComponentName(this, MainActivity.class);
         p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
         ToastUtils.toast(this, "showAppIcon");
-    }
-
-    public void startService() {
-        startService(new Intent(this, MainService.class));
-        startService(new Intent(this, RemoteService.class));
-        startService(new Intent(this, JobService.class));
     }
 
     public void registerDeviceManager() {

